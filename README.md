@@ -2,11 +2,12 @@
 
 <br/>
 
-<img src="https://c.tenor.com/0hL1Ku3kE80AAAAC/dinosandcomics-dinosaur.gif" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen>
+<div align="center">
+  <img src="https://c.tenor.com/0hL1Ku3kE80AAAAC/dinosandcomics-dinosaur.gif" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen>
+</div>
 
 <!-- https://tenor.com/view/dinosandcomics-dinosaur-trex-vibing-chilling-gif-19580804-->
 
-<br/>
 <br/>
 
 ### Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others 🙂
