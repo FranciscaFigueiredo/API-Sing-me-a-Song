@@ -10,7 +10,9 @@
 
 <br/>
 
-### Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others 🙂
+<h3 style='color:#3e77b6; font-size:20px'>
+  Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others 🙂
+</h3>
 
 <br/>
 
