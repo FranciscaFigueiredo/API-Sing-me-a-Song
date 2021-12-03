@@ -2,18 +2,18 @@
 
 <br/>
 
-<div align="left" style='display:flex'>
-  <img src="https://c.tenor.com/0hL1Ku3kE80AAAAC/dinosandcomics-dinosaur.gif" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen>
-
-  <p align="right" style='color:#3e77b6; font-size:20px'>
-  Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others 🙂
-  </p>
+<div align="center">
+  <img src="https://c.tenor.com/0hL1Ku3kE80AAAAC/dinosandcomics-dinosaur.gif" width="60%" height="auto" frameBorder="0" class="giphy-embed" allowFullScreen>
 </div>
 
 <!-- https://tenor.com/view/dinosandcomics-dinosaur-trex-vibing-chilling-gif-19580804-->
 
 <br/>
 
+<h2 align="center" style='color:#3e77b6; font-size:36px;' width="30%">
+  Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others 🙂
+</h2>
+  
 <br/>
 
 ## How to install and run on terminal
