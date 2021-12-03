@@ -34,10 +34,26 @@ async function postRecommendation(req, res) {
 async function postUpvote(req, res) {
     const { id } = req.params;
 
+    const type = 'up';
+
     try {
-        const up = await recommendationService.upvote({ id });
+        const up = await recommendationService.upvote({ id, type });
 
         return res.status(200).send(up);
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+}
+
+async function postDownvote(req, res) {
+    const { id } = req.params;
+
+    const type = 'down';
+
+    try {
+        const down = await recommendationService.vote({ id, type });
+
+        return res.status(200).send(down);
     } catch (error) {
         return res.sendStatus(500);
     }
@@ -46,4 +62,5 @@ async function postUpvote(req, res) {
 export {
     postRecommendation,
     postUpvote,
+    postDownvote,
 };
