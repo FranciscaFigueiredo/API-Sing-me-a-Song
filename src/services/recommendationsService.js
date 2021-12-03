@@ -12,12 +12,6 @@ async function postRecommendation({ name, youtubeLink }) {
     return recommendation;
 }
 
-async function upvote({ id }) {
-    const score = await recommendationRepository.putScore({ id });
-
-    return score;
-}
-
 async function vote({ id, type }) {
     const findMusic = await recommendationRepository.findById({ id });
 
@@ -35,8 +29,18 @@ async function vote({ id, type }) {
     return music;
 }
 
+async function getSongs({ amount }) {
+    const findSongs = await recommendationRepository.getTopSongs({ amount });
+
+    if (!findSongs.length) {
+        throw new NotFoundError('Could not find any music');
+    }
+
+    return findSongs;
+}
+
 export {
     postRecommendation,
-    upvote,
     vote,
+    getSongs,
 };

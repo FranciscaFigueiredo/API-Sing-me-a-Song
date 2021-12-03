@@ -14,7 +14,7 @@
   Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others 🙂
 </h2>
   
-<br/>
+<!-- <br/> -->
 
 ## How to install and run on terminal
 
