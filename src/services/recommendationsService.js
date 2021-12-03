@@ -1,4 +1,5 @@
 import BodyError from '../errors/BodyRecommendationError.js';
+import NotFoundError from '../errors/CanNotFind.js';
 import * as recommendationRepository from '../repositories/recommendationRepository.js';
 
 async function postRecommendation({ name, youtubeLink }) {
@@ -18,9 +19,20 @@ async function upvote({ id }) {
 }
 
 async function vote({ id, type }) {
-    const score = await recommendationRepository.putScore({ id, type });
+    const findMusic = await recommendationRepository.findById({ id });
 
-    return score;
+    if (!findMusic.length) {
+        throw new NotFoundError("Couldn't find this song");
+    }
+
+    const music = await recommendationRepository.putScore({ id, type });
+
+    if (music[0].score < -5) {
+        await recommendationRepository.deleteRecommend({ id });
+        return 0;
+    }
+
+    return music;
 }
 
 export {

@@ -16,23 +16,29 @@ async function create({ name, youtubeLink }) {
     }
 }
 
-async function putScore({ id, type }) {
-    let song;
+async function findById({ id }) {
     try {
-        if (type === 'up') {
-            song = await connection.query(`
-                UPDATE songs 
-                SET score = score + 1
-                WHERE id = $1
-                RETURNING *;
-            `, [id]);
+        const song = await connection.query(`
+            SELECT * FROM songs
+            WHERE id = $1;
+        `, [id]);
 
-            return song.rows;
-        }
+        return song.rows;
+    } catch (error) {
+        return false;
+    }
+}
 
-        song = await connection.query(`
+async function putScore({ id, type }) {
+    let operator = '+';
+    if (type === 'down') {
+        operator = '-';
+    }
+
+    try {
+        const song = await connection.query(`
                 UPDATE songs 
-                SET score = score - 1
+                SET score = score ${operator} 1
                 WHERE id = $1
                 RETURNING *;
             `, [id]);
@@ -43,7 +49,22 @@ async function putScore({ id, type }) {
     }
 }
 
+async function deleteRecommend({ id }) {
+    try {
+        await connection.query(`
+            DELETE FROM songs
+            WHERE id = $1
+        `, [id]);
+
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 export {
     create,
     putScore,
+    deleteRecommend,
+    findById,
 };
