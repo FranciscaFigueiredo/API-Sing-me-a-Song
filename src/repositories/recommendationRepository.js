@@ -62,9 +62,26 @@ async function deleteRecommend({ id }) {
     }
 }
 
+async function getTopSongs({ amount }) {
+    let query = 'SELECT * FROM songs ORDER BY score DESC ';
+
+    if (amount) {
+        query += `LIMIT ${amount}`;
+    }
+
+    try {
+        const topSongs = await connection.query(`${query};`);
+
+        return topSongs.rows;
+    } catch (error) {
+        return false;
+    }
+}
+
 export {
     create,
     putScore,
     deleteRecommend,
     findById,
+    getTopSongs,
 };
