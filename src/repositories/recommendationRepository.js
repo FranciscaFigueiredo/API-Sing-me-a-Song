@@ -16,6 +16,22 @@ async function create({ name, youtubeLink }) {
     }
 }
 
+async function putScore({ id }) {
+    try {
+        const song = await connection.query(`
+            UPDATE songs 
+            SET score = score + 1
+            WHERE id = $1
+            RETURNING *;
+        `, [id]);
+
+        return song.rows;
+    } catch (error) {
+        return false;
+    }
+}
+
 export {
     create,
+    putScore,
 };

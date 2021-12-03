@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import postRecommend from './routers/recommendRouter.js';
+import recommendRouter from './routers/recommendRouter.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/recommend', postRecommend);
+app.use('/recommend', recommendRouter);
 
 export {
     app,

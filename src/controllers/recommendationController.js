@@ -31,6 +31,19 @@ async function postRecommendation(req, res) {
     }
 }
 
+async function postUpvote(req, res) {
+    const { id } = req.params;
+
+    try {
+        const up = await recommendationService.upvote({ id });
+
+        return res.status(200).send(up);
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+}
+
 export {
     postRecommendation,
+    postUpvote,
 };

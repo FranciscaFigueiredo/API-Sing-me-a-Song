@@ -1,5 +1,5 @@
 import BodyError from '../errors/BodyRecommendationError.js';
-import * as recommendationRepository from '../repositories/recommendationsRepository.js';
+import * as recommendationRepository from '../repositories/recommendationRepository.js';
 
 async function postRecommendation({ name, youtubeLink }) {
     const recommendation = await recommendationRepository.create({ name, youtubeLink });
@@ -11,6 +11,13 @@ async function postRecommendation({ name, youtubeLink }) {
     return recommendation;
 }
 
+async function upvote({ id }) {
+    const score = await recommendationRepository.putScore({ id });
+
+    return score;
+}
+
 export {
     postRecommendation,
+    upvote,
 };
