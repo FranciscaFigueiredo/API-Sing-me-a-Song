@@ -1,8 +1,22 @@
 import BodyError from '../errors/BodyRecommendationError.js';
 import NotFoundError from '../errors/CanNotFind.js';
 import * as recommendationRepository from '../repositories/recommendationRepository.js';
+import { recommendationSchema } from '../validations/recommendationsValidate.js';
+
+function validateBody({ name, youtubeLink }) {
+    const validate = recommendationSchema.validate({
+        name,
+        youtubeLink,
+    });
+
+    if (validate.error) {
+        throw new BodyError(validate.error.message);
+    }
+}
 
 async function postRecommendation({ name, youtubeLink }) {
+    validateBody({ name, youtubeLink });
+
     const recommendation = await recommendationRepository.create({ name, youtubeLink });
 
     if (!recommendation) {
@@ -15,16 +29,11 @@ async function postRecommendation({ name, youtubeLink }) {
 async function vote({ id, type }) {
     const findMusic = await recommendationRepository.findById({ id });
 
-    if (!findMusic.length) {
+    if (!findMusic) {
         throw new NotFoundError("Couldn't find this song");
     }
 
     const music = await recommendationRepository.putScore({ id, type });
-
-    if (music[0].score < -5) {
-        await recommendationRepository.deleteRecommend({ id });
-        return 0;
-    }
 
     return music;
 }
