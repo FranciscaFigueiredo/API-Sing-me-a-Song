@@ -52,7 +52,7 @@ FN:93,getUnpopularSongs
 FNF:7
 FNH:4
 FNDA:0,create
-FNDA:2,findById
+FNDA:3,findById
 FNDA:0,deleteRecommend
 FNDA:0,putScore
 FNDA:1,getTopSongs
@@ -62,8 +62,8 @@ DA:4,0
 DA:5,0
 DA:13,0
 DA:15,0
-DA:20,2
-DA:21,2
+DA:20,3
+DA:21,3
 DA:26,0
 DA:28,2
 DA:33,0
