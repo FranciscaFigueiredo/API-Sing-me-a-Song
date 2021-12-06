@@ -35,13 +35,14 @@ describe('Vote for the recommendation', () => {
             .mockImplementationOnce(() => ({
                 id: 1,
                 name: 'name',
-                youtubeLink: 'youtubeLink',
+                youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y',
                 score: 2,
             }));
         jest.spyOn(recommendationRepository, 'putScore')
             .mockImplementationOnce(() => (downvote));
-        const result = sut.vote({ id: 1, type: 'down' });
-        await expect(result).toEqual;
+
+        const result = await sut.vote({ id: 1, type: 'down' });
+        expect(result).toEqual(downvote);
     });
 });
 
@@ -52,8 +53,8 @@ describe('POST recommendation', () => {
     });
 
     it('should returns instance of NotFoundError', async () => {
-        const song = sut.vote({ id: -10, type: 'down' });
-        await expect(song).rejects.toThrowError(NotFoundError);
+        const song = sut.postRecommendation({ name: 'name1', youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y' });
+        await expect(song).rejects.toThrowError(BodyError);
     });
 });
 
