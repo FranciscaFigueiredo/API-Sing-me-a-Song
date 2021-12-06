@@ -29,6 +29,19 @@ async function findById({ id }) {
     }
 }
 
+async function deleteRecommend({ id }) {
+    try {
+        await connection.query(`
+            DELETE FROM songs
+            WHERE id = $1
+        `, [id]);
+
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 async function putScore({ id, type }) {
     let operator = '+';
     if (type === 'down') {
@@ -42,21 +55,10 @@ async function putScore({ id, type }) {
                 WHERE id = $1
                 RETURNING *;
             `, [id]);
-
+        if (song.rows[0].score < -5) {
+            await deleteRecommend({ id });
+        }
         return song.rows;
-    } catch (error) {
-        return false;
-    }
-}
-
-async function deleteRecommend({ id }) {
-    try {
-        await connection.query(`
-            DELETE FROM songs
-            WHERE id = $1
-        `, [id]);
-
-        return true;
     } catch (error) {
         return false;
     }

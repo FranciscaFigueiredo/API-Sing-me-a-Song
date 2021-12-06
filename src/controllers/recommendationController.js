@@ -1,4 +1,3 @@
-import { recommendationSchema } from '../validations/recommendationsValidate.js';
 import * as recommendationService from '../services/recommendationsService.js';
 import BodyError from '../errors/BodyRecommendationError.js';
 import NotFoundError from '../errors/CanNotFind.js';
@@ -8,15 +7,6 @@ async function postRecommendation(req, res) {
         name,
         youtubeLink,
     } = req.body;
-
-    const validate = recommendationSchema.validate({
-        name,
-        youtubeLink,
-    });
-
-    if (validate.error) {
-        throw new BodyError(validate.error.message);
-    }
 
     try {
         const recommendation = await recommendationService.postRecommendation({
