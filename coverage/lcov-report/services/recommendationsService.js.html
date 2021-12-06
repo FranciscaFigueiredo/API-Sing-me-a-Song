@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.9% </span>
+                <span class="strong">41.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/44</span>
+                <span class='fraction'>17/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.69% </span>
+                <span class="strong">29.16% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/26</span>
+                <span class='fraction'>7/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.27% </span>
+                <span class="strong">42.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/43</span>
+                <span class='fraction'>17/40</span>
             </div>
         
             
@@ -156,12 +156,7 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,36 +188,31 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -290,37 +280,32 @@ async function postRecommendation({ name, youtubeLink }) {
 async function vote({ id, type }) {
     const findMusic = await recommendationRepository.findById({ id });
 &nbsp;
-    if (!findMusic.length) {
+    if (!findMusic) {
         throw new NotFoundError("Couldn't find this song");
     }
 &nbsp;
-    const music = <span class="cstat-no" title="statement not covered" >await recommendationRepository.putScore({ id, type });</span>
+    const music = await recommendationRepository.putScore({ id, type });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (music[0].score &lt; -5) {</span>
-<span class="cstat-no" title="statement not covered" >        await recommendationRepository.deleteRecommend({ id });</span>
-<span class="cstat-no" title="statement not covered" >        return 0;</span>
-    }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return music;</span>
+    return music;
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >getSongs(</span>{ amount }) {
-    const findSongs = <span class="cstat-no" title="statement not covered" >await recommendationRepository.getTopSongs({ amount });</span>
+async function getSongs({ amount }) {
+    const findSongs = await recommendationRepository.getTopSongs({ amount });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!findSongs.length) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new NotFoundError('Could not find any music');</span>
+    if (!findSongs.length) {
+        throw new NotFoundError('Could not find any music');
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return findSongs;</span>
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >getSongsRandom(</span>) {
-    const findPopularSongs = <span class="cstat-no" title="statement not covered" >await recommendationRepository.getPopularSongs();</span>
-    const findUnpopularSongs = <span class="cstat-no" title="statement not covered" >await recommendationRepository.getUnpopularSongs();</span>
-    const randomRecommendations = <span class="cstat-no" title="statement not covered" >[];</span>
+async function getSongsRandom() {
+    const findPopularSongs = await recommendationRepository.getPopularSongs();
+    const findUnpopularSongs = await recommendationRepository.getUnpopularSongs();
+    const randomRecommendations = [];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (!findPopularSongs.length &amp;&amp; !findUnpopularSongs.length) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new NotFoundError('Could not find songs');</span>
+    if (!findPopularSongs.length &amp;&amp; !findUnpopularSongs.length) {
+        throw new NotFoundError('Could not find songs');
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (!findPopularSongs.length) {</span>
@@ -364,7 +349,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Mon Dec 06 2021 16:43:21 GMT-0300 (Horário Padrão de Brasília)
+                at Mon Dec 06 2021 16:55:22 GMT-0300 (Horário Padrão de Brasília)
             </div>
         </div>
         <script src="../prettify.js"></script>
