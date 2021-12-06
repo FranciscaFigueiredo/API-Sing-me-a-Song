@@ -44,6 +44,26 @@ describe('Vote for the recommendation', () => {
         const result = await sut.vote({ id: 1, type: 'down' });
         expect(result).toEqual(downvote);
     });
+
+    it('should returns score + 1 for upvote', async () => {
+        const upvote = {
+            ...song,
+            score: song.score + 1,
+        };
+
+        jest.spyOn(recommendationRepository, 'findById')
+            .mockImplementationOnce(() => ({
+                id: 1,
+                name: 'name',
+                youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y',
+                score: 2,
+            }));
+        jest.spyOn(recommendationRepository, 'putScore')
+            .mockImplementationOnce(() => (upvote));
+
+        const result = await sut.vote({ id: 1, type: 'up' });
+        expect(result).toEqual(upvote);
+    });
 });
 
 describe('POST recommendation', () => {
