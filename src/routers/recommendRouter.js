@@ -8,5 +8,6 @@ router.post('', recommendationController.postRecommendation);
 router.put('/:id/upvote', recommendationController.postUpvote);
 router.put('/:id/downvote', recommendationController.postDownvote);
 router.get('/top/:amount', recommendationController.getTopSongs);
+router.get('/random', recommendationController.getRandomSongs);
 
 export default router;
