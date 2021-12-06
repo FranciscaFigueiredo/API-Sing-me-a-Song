@@ -78,10 +78,32 @@ async function getTopSongs({ amount }) {
     }
 }
 
+async function getPopularSongs() {
+    try {
+        const popularSongs = await connection.query('SELECT * FROM songs WHERE score > 10;');
+
+        return popularSongs.rows;
+    } catch (error) {
+        return [];
+    }
+}
+
+async function getUnpopularSongs() {
+    try {
+        const unpopularSongs = await connection.query('SELECT * FROM songs WHERE score < 11;');
+
+        return unpopularSongs.rows;
+    } catch (error) {
+        return [];
+    }
+}
+
 export {
     create,
     putScore,
     deleteRecommend,
     findById,
     getTopSongs,
+    getPopularSongs,
+    getUnpopularSongs,
 };

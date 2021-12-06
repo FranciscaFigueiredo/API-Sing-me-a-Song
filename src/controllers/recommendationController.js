@@ -81,9 +81,23 @@ async function getTopSongs(req, res) {
     }
 }
 
+async function getRandomSongs(req, res) {
+    try {
+        const songs = await recommendationService.getSongsRandom();
+
+        return res.status(200).send(songs);
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            return res.status(404).send(error.message);
+        }
+        return res.sendStatus(500);
+    }
+}
+
 export {
     postRecommendation,
     postUpvote,
     postDownvote,
     getTopSongs,
+    getRandomSongs,
 };
