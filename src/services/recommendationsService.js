@@ -44,6 +44,10 @@ async function getSongsRandom() {
     const findUnpopularSongs = await recommendationRepository.getUnpopularSongs();
     const randomRecommendations = [];
 
+    if (!findPopularSongs.length && !findUnpopularSongs.length) {
+        throw new NotFoundError('Could not find songs');
+    }
+
     if (!findPopularSongs.length) {
         return findUnpopularSongs;
     }
