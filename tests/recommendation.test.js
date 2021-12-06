@@ -103,7 +103,6 @@ describe('GET recommendations', () => {
     });
 });
 
-
 describe('FIND recommendation', () => {
     it('should returns right song', async () => {
         jest.spyOn(recommendationRepository, 'create')
