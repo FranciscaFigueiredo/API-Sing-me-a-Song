@@ -72,20 +72,52 @@ describe('POST recommendation', () => {
         await expect(song).rejects.toThrowError(BodyError);
     });
 
-    it('should returns instance of NotFoundError', async () => {
-        const song = sut.postRecommendation({ name: 'name1', youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y' });
-        await expect(song).rejects.toThrowError(BodyError);
+    it('should returns the body created', async () => {
+        jest.spyOn(recommendationRepository, 'create')
+            .mockImplementationOnce(() => ({
+                name: 'name123',
+                youtubeLink: 'https://www.youtube.com/watch?v=chwyjwswJbsssscs1Y',
+            }));
+
+        const song = await sut.postRecommendation({ name: 'name123', youtubeLink: 'https://www.youtube.com/watch?v=chwyjwswJbsssscs1Y' });
+        await expect(song).toEqual({ name: 'name123', youtubeLink: 'https://www.youtube.com/watch?v=chwyjwswJbsssscs1Y' });
     });
 });
 
 describe('GET recommendations', () => {
-    it('should returns instance of NotFoundError', async () => {
+    it('should returns instance of NotFoundError when there is no music', async () => {
         const song = sut.getSongs({ amount: 5 });
         await expect(song).rejects.toThrowError(NotFoundError);
     });
 
     it('should returns instance of NotFoundError', async () => {
+        jest.spyOn(recommendationRepository, 'create')
+            .mockImplementationOnce(() => ({
+                id: 1,
+                name: 'name',
+                youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y',
+                score: 2,
+            }));
         const song = sut.getSongsRandom();
         await expect(song).rejects.toThrowError(NotFoundError);
+    });
+});
+
+describe('FIND recommendation', () => {
+    it('should returns right song', async () => {
+        jest.spyOn(recommendationRepository, 'create')
+            .mockImplementationOnce(() => ({
+                id: 1,
+                name: 'name',
+                youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y',
+                score: 2,
+            }));
+        const song = recommendationRepository.findById({ id: 2 });
+        await expect(song).not.toBe({
+            id: 1,
+            name: 'name',
+            youtubeLink: 'https://www.youtube.com/watch?v=chwyjJbcs1Y',
+            score: 2,
+        });
     });
 });
