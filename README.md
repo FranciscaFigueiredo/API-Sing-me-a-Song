@@ -50,7 +50,7 @@ or
 
 ### - Prepare the backend and database
 
-- Use the api_dump.sql file to create the project database
+- Use the api.sql file to create the project database
 
 - Edit the .env.example file with the necessary data to connect to your bank.
 
