@@ -5,8 +5,8 @@ import * as recommendationController from '../controllers/recommendationControll
 const router = new Router();
 
 router.post('', recommendationController.postRecommendation);
-router.put('/:id/upvote', recommendationController.postUpvote);
-router.put('/:id/downvote', recommendationController.postDownvote);
+router.post('/:id/upvote', recommendationController.postUpvote);
+router.post('/:id/downvote', recommendationController.postDownvote);
 router.get('/top/:amount', recommendationController.getTopSongs);
 router.get('/random', recommendationController.getRandomSongs);
 

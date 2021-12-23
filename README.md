@@ -87,7 +87,7 @@ or
   - If you only have songs with a score between -5 and 10 or above 10, the answer will be completely random.
   - If there is no song registered, the 404 status must be returned
 
-  A resposta deve ter o formato:
+  A resposta tem o formato:
 
   ```
     {
@@ -101,7 +101,9 @@ or
 </br>
 
 - GET /recommendations/top/:amount
-  - Lists the songs with the highest score and their score. The top x songs (parameter :amount of the route) should be returned, sorted by score (highest first)
+  - Lists the songs with the highest score and their score. The top x songs (parameter :amount of the route) should be returned, sorted by score (highest first).
+  
+  A resposta tem o formato:
   ```
   [
     {

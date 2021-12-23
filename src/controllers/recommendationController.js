@@ -73,9 +73,9 @@ async function getTopSongs(req, res, next) {
 
 async function getRandomSongs(req, res, next) {
     try {
-        const songs = await recommendationService.getSongsRandom();
-
-        return res.status(200).send(songs);
+        const song = await recommendationService.getSongsRandom();
+        // console.log(song);
+        return res.status(200).send(song);
     } catch (error) {
         if (error instanceof NotFoundError) {
             return res.status(404).send(error.message);

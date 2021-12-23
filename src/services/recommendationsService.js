@@ -48,10 +48,19 @@ async function getSongs({ amount }) {
     return findSongs;
 }
 
+function sortByScore(a, b) {
+    if (a.vote > b.vote) {
+        return 1;
+    }
+    if (a.vote < b.vote) {
+        return -1;
+    }
+    return 0;
+}
+
 async function getSongsRandom() {
     const findPopularSongs = await recommendationRepository.getPopularSongs();
     const findUnpopularSongs = await recommendationRepository.getUnpopularSongs();
-    const randomRecommendations = [];
 
     if (!findPopularSongs.length && !findUnpopularSongs.length) {
         throw new NotFoundError('Could not find songs');
@@ -65,24 +74,13 @@ async function getSongsRandom() {
         return findPopularSongs;
     }
 
-    const lengthTotal = findPopularSongs.length + findUnpopularSongs.length;
-    let random = 0;
-    let index = 0;
-    for (let i = 0; i < lengthTotal; i++) {
-        random = Math.floor((Math.random() * 10) + 1);
-        if (random > 3 && findPopularSongs.length) {
-            index = Math.floor((Math.random() * (findPopularSongs.length - 1)));
-            randomRecommendations.push(findPopularSongs[index]);
-            findPopularSongs.splice(index, 1);
-        }
-        if (random <= 3 && findUnpopularSongs.length) {
-            index = Math.floor((Math.random() * (findUnpopularSongs.length - 1)));
-            randomRecommendations.push(findUnpopularSongs[index]);
-            findUnpopularSongs.splice(index, 1);
-        }
-    }
+    const random = Math.floor((Math.random() * 10) + 1);
 
-    return randomRecommendations;
+    const randomRecommendations = random > 3 ? findPopularSongs : findUnpopularSongs;
+
+    const randomSong = randomRecommendations.sort(sortByScore)[0];
+
+    return randomSong;
 }
 
 export {
