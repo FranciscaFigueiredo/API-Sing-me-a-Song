@@ -5,7 +5,7 @@ import * as recommendationRepository from '../src/repositories/recommendationRep
 
 const sut = recommendationService;
 
-describe('Not Found recommendation', () => {
+describe('Not Found error', () => {
     it('should returns instance of NotFoundError', async () => {
         const result = sut.vote({ id: -10, type: 'up' });
         await expect(result).rejects.toThrowError(NotFoundError);
@@ -67,8 +67,13 @@ describe('Vote for the recommendation', () => {
 });
 
 describe('POST recommendation', () => {
-    it('should returns instance of NotFoundError', async () => {
+    it('should returns instance of NotFoundError for invalid link', async () => {
         const song = sut.postRecommendation({ name: 'name', youtubeLink: 'youtubeLink' });
+        await expect(song).rejects.toThrowError(BodyError);
+    });
+
+    it('should returns instance of NotFoundError for undefined body', async () => {
+        const song = sut.postRecommendation({ });
         await expect(song).rejects.toThrowError(BodyError);
     });
 
