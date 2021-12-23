@@ -2,7 +2,7 @@ import * as recommendationService from '../services/recommendationsService.js';
 import BodyError from '../errors/BodyRecommendationError.js';
 import NotFoundError from '../errors/CanNotFind.js';
 
-async function postRecommendation(req, res) {
+async function postRecommendation(req, res, next) {
     const {
         name,
         youtubeLink,
@@ -18,11 +18,11 @@ async function postRecommendation(req, res) {
         if (error instanceof BodyError) {
             return res.status(400).send(error.message);
         }
-        return res.sendStatus(500);
+        return next();
     }
 }
 
-async function postUpvote(req, res) {
+async function postUpvote(req, res, next) {
     const { id } = req.params;
 
     const type = 'up';
@@ -35,11 +35,11 @@ async function postUpvote(req, res) {
         if (error instanceof NotFoundError) {
             return res.status(404).send(error.message);
         }
-        return res.sendStatus(500);
+        return next();
     }
 }
 
-async function postDownvote(req, res) {
+async function postDownvote(req, res, next) {
     const { id } = req.params;
 
     const type = 'down';
@@ -52,11 +52,11 @@ async function postDownvote(req, res) {
         if (error instanceof NotFoundError) {
             return res.status(404).send(error.message);
         }
-        return res.sendStatus(500);
+        return next();
     }
 }
 
-async function getTopSongs(req, res) {
+async function getTopSongs(req, res, next) {
     const { amount } = req.params;
 
     try {
@@ -67,11 +67,11 @@ async function getTopSongs(req, res) {
         if (error instanceof NotFoundError) {
             return res.status(404).send(error.message);
         }
-        return res.sendStatus(500);
+        return next();
     }
 }
 
-async function getRandomSongs(req, res) {
+async function getRandomSongs(req, res, next) {
     try {
         const songs = await recommendationService.getSongsRandom();
 
@@ -80,7 +80,7 @@ async function getRandomSongs(req, res) {
         if (error instanceof NotFoundError) {
             return res.status(404).send(error.message);
         }
-        return res.sendStatus(500);
+        return next();
     }
 }
 
